@@ -50,9 +50,25 @@ public class Player : MonoBehaviour
     public GameObject interactText;
     public bool holdUntilPressE = true;
     public GameObject partnerDiedText;
-    public int ammo;
+    [SerializeField]
+    private int ammo;
+    public int maxAmmo;
+    public int Ammo {
+        get => ammo;
+        set {
+            if (value > this.maxAmmo) {
+                this.ammo = this.maxAmmo;
+            } else if (value < 0) {
+                this.ammo = 0;
+            } else {
+                this.ammo = value;
+            }
+        }
+    }
+
     private bool attackEnabled = true;
     public bool AttackEnabled { get => attackEnabled; set => attackEnabled = value; }
+
     public GameObject meleeHitbox;
     public int meleeDamage;
 
@@ -76,7 +92,7 @@ public class Player : MonoBehaviour
                 }
 
                 if (this.AttackEnabled) {
-                    if (this.ammo > 0) {
+                    if (this.Ammo > 0) {
                         if (this.nextFire <= 0) {
                             if (Input.GetButton("Fire1") && !Input.GetKey(KeyCode.F)) {
                                 this.Shoot();
@@ -121,7 +137,7 @@ public class Player : MonoBehaviour
 
     void Shoot() {
         this.nextFire = this.fireRate;
-        this.ammo--;
+        this.Ammo--;
         Instantiate(this.bulletPrefab, new Vector3(( this.facingRight ? 0.1f : -0.1f ), 0, 0) + this.transform.position, Quaternion.AngleAxis(( this.facingRight ? 0 : 180 ), Vector3.forward));
     }
 
