@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
 
 
     void Start() {
-        this.FacingRight = true;
+        this.FacingRight = false;
         this.rb2d = GetComponent<Rigidbody2D>();
     }
 
