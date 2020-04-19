@@ -96,12 +96,8 @@ public class Player : MonoBehaviour
         foreach (Vector3 rayPosition in this.rayPositions) {
             Debug.DrawRay(transform.position + rayPosition, Vector2.down * this.rayLength, Color.green);
         }
-    }
-
-    void FixedUpdate() {
         if (!this.holdUntilPressE) {
             if (this.Alive && !this.partnerDied) {
-                float moveHorizontal = Input.GetAxis("Horizontal");
                 if (Input.GetButton("Jump")) {
                     this.Jump();
                 }
@@ -138,6 +134,17 @@ public class Player : MonoBehaviour
                 } else {
                     this.swingDelay -= Time.deltaTime;
                 }
+            }
+        }
+    }
+
+    void FixedUpdate() {
+        if (!this.holdUntilPressE) {
+            if (this.Alive && !this.partnerDied) {
+                float moveHorizontal = Input.GetAxis("Horizontal");
+                if (Input.GetButton("Jump")) {
+                    this.Jump();
+                }
 
                 this.rb2d.velocity = new Vector2(moveHorizontal * this.maxSpeed, this.rb2d.velocity.y);
                 this.clampHorizontalSpeed();
@@ -166,7 +173,7 @@ public class Player : MonoBehaviour
 
     void Swing() {
         this.meleeHitbox.SetActive(true);
-        this.swingDelay = 0.25f;
+        this.swingDelay = 1f;
         this.nextSwing = this.swingRate;
     }
 

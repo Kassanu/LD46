@@ -6,8 +6,8 @@ public abstract class ResourceNode : MonoBehaviour
 {
     public Player player;
     public bool playerInRange;
-    public int cooldownMax = 30;
-    public int cooldown = 0;
+    public float cooldownMax = 30;
+    public float cooldown = 0;
     public Sprite activeSprite;
     public Sprite onCooldownSprite;
     public SpriteRenderer spriteRenderer;
@@ -34,7 +34,7 @@ public abstract class ResourceNode : MonoBehaviour
                 }
             }
         } else if (this.canRefresh) {
-            this.cooldown--;
+            this.cooldown -= Time.deltaTime;
         }
     }
 

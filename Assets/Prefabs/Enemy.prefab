@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5c34bb5c9a56f144aac9a87d6d20e30e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee0055490b4496448a89e1be1cdee06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
+  health: 100
   maxSpeed: 1
   speed: 0.5
   jumpForce: 4.5
@@ -111,7 +111,7 @@ MonoBehaviour:
   playerInAggroRadius: 0
   attackCooldownStart: 10
   attackCooldown: 0
-  attackAmount: 1
+  attackAmount: 5
   sprite: {fileID: 5687358981138117543}
   groundRayLength: 0.1
   forwardRayLength: 0.3
@@ -120,6 +120,7 @@ MonoBehaviour:
   jumpForwardRayPositions:
   - {x: -0.5, y: 0, z: 0}
   distanceFromPlayer: 0
+  destroyIfFarFromPlayer: 1
 --- !u!50 &5687358981138117542
 Rigidbody2D:
   serializedVersion: 4

@@ -9,6 +9,7 @@ TagManager:
   - Spawner
   - Partner
   - Boundry
+  - Rain
   layers:
   - Default
   - TransparentFX

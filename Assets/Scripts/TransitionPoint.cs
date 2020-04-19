@@ -8,6 +8,7 @@ public class TransitionPoint : MonoBehaviour
     public Transform transitionTo;
     public Player player;
     public bool isActive;
+    public bool disabled = false;
 
     // Start is called before the first frame update
     void Start()
@@ -16,14 +17,15 @@ public class TransitionPoint : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E) && this.isActive) {
-            Camera.main.transform.position = new Vector3(this.transitionTo.position.x, this.transitionTo.position.y, Camera.main.transform.position.z);
-            this.player.transform.position = new Vector3(this.transitionTo.position.x, this.transitionTo.position.y, this.player.transform.position.z);
-        }
-        if (this.isActive) {
-            this.player.interactText.SetActive(true);
+    void Update() {
+        if (!this.disabled) {
+            if (Input.GetKeyDown(KeyCode.E) && this.isActive) {
+                Camera.main.transform.position = new Vector3(this.transitionTo.position.x, this.transitionTo.position.y, Camera.main.transform.position.z);
+                this.player.transform.position = new Vector3(this.transitionTo.position.x, this.transitionTo.position.y, this.player.transform.position.z);
+            }
+            if (this.isActive) {
+                this.player.interactText.SetActive(true);
+            }
         }
     }
 

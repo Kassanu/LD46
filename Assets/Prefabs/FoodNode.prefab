@@ -128,3 +128,5 @@ MonoBehaviour:
   activeSprite: {fileID: 21300000, guid: 47f4e92915b49fd47ae9475ec17d082e, type: 3}
   onCooldownSprite: {fileID: 21300000, guid: a0ec73eacdd1d4544bd9463b9b2abc7d, type: 3}
   spriteRenderer: {fileID: 0}
+  canRefresh: 1
+  resourceAmount: 1

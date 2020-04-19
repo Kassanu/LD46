@@ -55,6 +55,7 @@ public class Enemy : MonoBehaviour
     private Vector3[] jumpForwardRayPositions;
 
     public float distanceFromPlayer = 0;
+    public bool destroyIfFarFromPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -76,7 +77,7 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate() {
         Vector3 direction = this.player.transform.position - this.transform.position;
         this.distanceFromPlayer = direction.magnitude;
-        if (this.distanceFromPlayer > 20) {
+        if (this.distanceFromPlayer > 20 && this.destroyIfFarFromPlayer) {
             Destroy(this.gameObject);
         }
         if (!this.PlayerInAttackRadius) {

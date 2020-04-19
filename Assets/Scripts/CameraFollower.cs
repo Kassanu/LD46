@@ -9,6 +9,8 @@ public class CameraFollower : MonoBehaviour {
     public GameObject playerDeathScenePosition;
     private Vector3 offset;
     public bool follow = true;
+    public GameObject sky;
+    public GameObject dirt;
 
     void Start() {
         this.player = GameObject.FindWithTag("Player");
@@ -24,8 +26,11 @@ public class CameraFollower : MonoBehaviour {
     }
 
     public void triggerPlayerDeathScene() {
+        Debug.Log("triggering player death scene");
         this.follow = false;
         this.rain.SetActive(false);
+        this.sky.SetActive(true);
+        this.dirt.SetActive(false);
         Camera.main.transform.position = new Vector3(this.playerDeathScenePosition.transform.position.x, this.playerDeathScenePosition.transform.position.y, Camera.main.transform.position.z);
         StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, 0));
     }
