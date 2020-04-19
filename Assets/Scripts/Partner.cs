@@ -50,10 +50,10 @@ public class Partner : MonoBehaviour
                         this.healthDropTime -= Time.deltaTime;
                     }
                 }
-            }
 
-            if (this.playerInRange && this.player.Food > 0) {
-                this.player.interactText.SetActive(true);
+                if (this.playerInRange && this.player.Food > 0) {
+                    this.player.interactText.SetActive(true);
+                }
             }
         }
     }

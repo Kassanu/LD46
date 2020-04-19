@@ -169,10 +169,15 @@ public class Player : MonoBehaviour
 
     public void Hurt(int damage) {
         this.health -= damage;
+        if (this.health < 1) {
+            this.Alive = false;
+            GameObject.FindWithTag("MainCamera").GetComponent<CameraFollower>().triggerPlayerDeathScene();
+        }
     }
 
     public void triggerPartnerDeathScene() {
         this.inPartnerDiedPosition = true;
         this.partnerDiedText.SetActive(true);
+        StartCoroutine(GameObject.FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, 0));
     }
 }

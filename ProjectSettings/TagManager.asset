@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Spawner
   - Partner
+  - Boundry
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - 
   - Spawner
   - Ground
-  - 
+  - Boundry
   - 
   - 
   - 

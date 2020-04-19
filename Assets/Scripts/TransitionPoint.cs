@@ -41,4 +41,8 @@ public class TransitionPoint : MonoBehaviour
             this.player.interactText.SetActive(false);
         }
     }
+
+    private void OnDrawGizmosSelected() {
+        Debug.DrawLine(this.transform.position, this.transitionTo.position);
+    }
 }

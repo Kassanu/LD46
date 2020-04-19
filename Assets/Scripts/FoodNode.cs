@@ -11,6 +11,7 @@ public class FoodNode : MonoBehaviour
     public Sprite activeSprite;
     public Sprite onCooldownSprite;
     public SpriteRenderer spriteRenderer;
+    public bool canRefresh = true;
 
     // Start is called before the first frame update
     void Start() {
@@ -22,17 +23,16 @@ public class FoodNode : MonoBehaviour
     void Update() {
         if (this.cooldown <= 0) {
             this.spriteRenderer.sprite = this.activeSprite;
-            if (Input.GetKeyDown(KeyCode.E) && this.playerInRange) {
-                this.player.Food += 1;
-                this.cooldown = this.cooldownMax;
-                this.spriteRenderer.sprite = this.onCooldownSprite;
+            if (this.playerInRange) {
+                this.player.interactText.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E)) {
+                    this.player.Food += 1;
+                    this.cooldown = this.cooldownMax;
+                    this.spriteRenderer.sprite = this.onCooldownSprite;
+                }
             }
-        } else {
+        } else if (this.canRefresh) {
             this.cooldown--;
-        }
-
-        if (this.playerInRange) {
-            this.player.interactText.SetActive(true);
         }
     }
 
