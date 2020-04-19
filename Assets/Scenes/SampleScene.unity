@@ -1330,6 +1330,7 @@ MonoBehaviour:
   interactText: {fileID: 875695965}
   holdUntilPressE: 1
   partnerDiedText: {fileID: 2021005609}
+  ammo: 10
 --- !u!212 &1014384674
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2437,6 +2438,10 @@ MonoBehaviour:
   playerInRange: 0
   food: 0
   health: 100
+  foodDropTime: 0
+  nextFoodDropTime: 100
+  healthDropTime: 0
+  nextHealthDropTime: 2
   tutorialText: {fileID: 394836538}
 --- !u!61 &2141695949
 BoxCollider2D:

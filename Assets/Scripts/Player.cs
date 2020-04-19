@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
     public GameObject interactText;
     public bool holdUntilPressE = true;
     public GameObject partnerDiedText;
-
+    public int ammo;
 
     void Start() {
         this.FacingRight = false;
@@ -68,12 +68,14 @@ public class Player : MonoBehaviour
                     this.Jump();
                 }
 
-                if (this.nextFire <= 0) {
-                    if (Input.GetButton("Fire1")) {
-                        this.Shoot();
+                if (this.ammo > 0) {
+                    if (this.nextFire <= 0) {
+                        if (Input.GetButton("Fire1")) {
+                            this.Shoot();
+                        }
+                    } else {
+                        this.nextFire -= 1;
                     }
-                } else {
-                    this.nextFire -= 1;
                 }
 
                 this.rb2d.velocity = new Vector2(moveHorizontal * this.maxSpeed, this.rb2d.velocity.y);
@@ -97,6 +99,7 @@ public class Player : MonoBehaviour
 
     void Shoot() {
         this.nextFire = this.fireRate;
+        this.ammo--;
         Instantiate(this.bulletPrefab, new Vector3(( this.facingRight ? 0.1f : -0.1f ), 0, 0) + this.transform.position, Quaternion.AngleAxis(( this.facingRight ? 0 : 180 ), Vector3.forward));
     }
 
