@@ -41,6 +41,9 @@ public class Player : MonoBehaviour
     private Bullet bulletPrefab;
     public float fireRate;
     private float nextFire;
+    public float swingRate;
+    public float nextSwing;
+    public float swingDelay;
     public bool partnerDied = false;
     public bool inPartnerDiedPosition = false;
     public Transform partnerDiedPosition;
@@ -48,6 +51,10 @@ public class Player : MonoBehaviour
     public bool holdUntilPressE = true;
     public GameObject partnerDiedText;
     public int ammo;
+    private bool attackEnabled = true;
+    public bool AttackEnabled { get => attackEnabled; set => attackEnabled = value; }
+    public GameObject meleeHitbox;
+    public int meleeDamage;
 
     void Start() {
         this.FacingRight = false;
@@ -68,14 +75,29 @@ public class Player : MonoBehaviour
                     this.Jump();
                 }
 
-                if (this.ammo > 0) {
-                    if (this.nextFire <= 0) {
-                        if (Input.GetButton("Fire1")) {
-                            this.Shoot();
+                if (this.AttackEnabled) {
+                    if (this.ammo > 0) {
+                        if (this.nextFire <= 0) {
+                            if (Input.GetButton("Fire1") && !Input.GetKey(KeyCode.F)) {
+                                this.Shoot();
+                            }
+                        } else {
+                            this.nextFire -= 1;
+                        }
+                    }
+                    if (this.nextSwing <= 0) {
+                        if (Input.GetKey(KeyCode.F) && !Input.GetButton("Fire1")) {
+                            this.Swing();
                         }
                     } else {
-                        this.nextFire -= 1;
+                        this.nextSwing -= Time.deltaTime;
                     }
+                }
+
+                if (this.swingDelay < 0) {
+                    this.meleeHitbox.SetActive(false);
+                } else {
+                    this.swingDelay -= Time.deltaTime;
                 }
 
                 this.rb2d.velocity = new Vector2(moveHorizontal * this.maxSpeed, this.rb2d.velocity.y);
@@ -103,6 +125,12 @@ public class Player : MonoBehaviour
         Instantiate(this.bulletPrefab, new Vector3(( this.facingRight ? 0.1f : -0.1f ), 0, 0) + this.transform.position, Quaternion.AngleAxis(( this.facingRight ? 0 : 180 ), Vector3.forward));
     }
 
+    void Swing() {
+        this.meleeHitbox.SetActive(true);
+        this.swingDelay = 0.25f;
+        this.nextSwing = this.swingRate;
+    }
+
     void Flip(float moveHorizontal) {
         if (moveHorizontal > 0 && !this.FacingRight || moveHorizontal < 0 && this.FacingRight) {
             this.FacingRight = !this.FacingRight;
@@ -111,6 +139,11 @@ public class Player : MonoBehaviour
 
     void FlipSprite() {
         this.sprite.flipX = !this.FacingRight;
+        if (this.FacingRight) {
+            this.meleeHitbox.transform.localPosition = new Vector3(0.1f, 0, 0);
+        } else {
+            this.meleeHitbox.transform.localPosition = new Vector3(-0.2f, 0, 0);
+        }
     }
 
     void clampHorizontalSpeed() {
