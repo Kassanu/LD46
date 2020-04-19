@@ -4,7 +4,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int health = 100;
+    [SerializeField]
+    private int health = 100;
+    public int Health {
+        get => health;
+        set {
+            if (value > 100) {
+                this.health = 100;
+            } else if (value < 0) {
+                this.health = 0;
+            } else {
+                this.health = value;
+            }
+        }
+    }
     public float maxSpeed = 10f;
     public float speed = 10f;
     public float jumpForce = 10f;
@@ -65,6 +78,8 @@ public class Player : MonoBehaviour
             }
         }
     }
+    public float eatCooldown;
+    public float nextEat;
 
     private bool attackEnabled = true;
     public bool AttackEnabled { get => attackEnabled; set => attackEnabled = value; }
@@ -110,6 +125,14 @@ public class Player : MonoBehaviour
                     }
                 }
 
+                if (this.nextEat <= 0) {
+                    if (Input.GetKey(KeyCode.C)) {
+                        this.Eat();
+                    }
+                } else {
+                    this.nextEat -= Time.deltaTime;
+                }
+
                 if (this.swingDelay < 0) {
                     this.meleeHitbox.SetActive(false);
                 } else {
@@ -145,6 +168,14 @@ public class Player : MonoBehaviour
         this.meleeHitbox.SetActive(true);
         this.swingDelay = 0.25f;
         this.nextSwing = this.swingRate;
+    }
+
+    void Eat() {
+        if (this.Food > 0) {
+            this.Health += 20;
+            this.Food--;
+            this.nextEat = this.eatCooldown;
+        }
     }
 
     void Flip(float moveHorizontal) {
@@ -184,8 +215,8 @@ public class Player : MonoBehaviour
     }
 
     public void Hurt(int damage) {
-        this.health -= damage;
-        if (this.health < 1) {
+        this.Health -= damage;
+        if (this.Health < 1) {
             this.Alive = false;
             GameObject.FindWithTag("MainCamera").GetComponent<CameraFollower>().triggerPlayerDeathScene();
         }
