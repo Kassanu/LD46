@@ -1,5 +1,6 @@
 # Partners
 Submission for Ludum Dare 46 - Keep it alive
+[Entry Page](https://ldjam.com/events/ludum-dare/46/partners)  
 
 # Story
 Your friend has fallen ill, collect food while fighting off zombies. But you need to be quick your friend won't last long. Return with enough food (and often) to save your friend.
