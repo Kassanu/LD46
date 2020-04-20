@@ -105,13 +105,13 @@ MonoBehaviour:
   rb2d: {fileID: 5687358981138117542}
   player: {fileID: 0}
   facingRight: 0
-  moveCooldownStart: 20
+  moveCooldownStart: 1
   moveCooldown: 0
   playerInAttackRadius: 0
   playerInAggroRadius: 0
-  attackCooldownStart: 10
+  attackCooldownStart: 8
   attackCooldown: 0
-  attackAmount: 5
+  attackAmount: 2
   sprite: {fileID: 5687358981138117543}
   groundRayLength: 0.1
   forwardRayLength: 0.3

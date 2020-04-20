@@ -11,6 +11,7 @@ public class CaveTrigger : MonoBehaviour
         if (other.tag == "Player") {
             this.sky.SetActive(false);
             this.dirt.SetActive(true);
+            other.GetComponent<Player>().InCave = true;
         }
     }
 
@@ -18,6 +19,7 @@ public class CaveTrigger : MonoBehaviour
         if (other.tag == "Player") {
             this.sky.SetActive(true);
             this.dirt.SetActive(false);
+            other.GetComponent<Player>().InCave = false;
         }
     }
 }

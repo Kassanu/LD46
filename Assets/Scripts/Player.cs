@@ -85,7 +85,13 @@ public class Player : MonoBehaviour
     public bool AttackEnabled { get => attackEnabled; set => attackEnabled = value; }
 
     public GameObject meleeHitbox;
+    public GameObject meleeSprite;
     public int meleeDamage;
+
+    private bool inCave = false;
+    private string caveFloor = "";
+    public bool InCave { get => inCave; set => inCave = value; }
+    public string CaveFloor { get => caveFloor; set => caveFloor = value; }
 
     void Start() {
         this.FacingRight = false;
@@ -131,6 +137,7 @@ public class Player : MonoBehaviour
 
                 if (this.swingDelay < 0) {
                     this.meleeHitbox.SetActive(false);
+                    this.meleeSprite.SetActive(false);
                 } else {
                     this.swingDelay -= Time.deltaTime;
                 }
@@ -173,7 +180,8 @@ public class Player : MonoBehaviour
 
     void Swing() {
         this.meleeHitbox.SetActive(true);
-        this.swingDelay = 1f;
+        this.meleeSprite.SetActive(true);
+        this.swingDelay = .5f;
         this.nextSwing = this.swingRate;
     }
 
@@ -189,15 +197,15 @@ public class Player : MonoBehaviour
         if (moveHorizontal > 0 && !this.FacingRight || moveHorizontal < 0 && this.FacingRight) {
             this.FacingRight = !this.FacingRight;
         }
+        if (this.FacingRight) {
+            this.meleeSprite.transform.localPosition = new Vector3(0.2f, 0, 0);
+        } else {
+            this.meleeSprite.transform.localPosition = new Vector3(-0.2f, 0, 0);
+        }
     }
 
     void FlipSprite() {
         this.sprite.flipX = !this.FacingRight;
-        if (this.FacingRight) {
-            this.meleeHitbox.transform.localPosition = new Vector3(0.1f, 0, 0);
-        } else {
-            this.meleeHitbox.transform.localPosition = new Vector3(-0.2f, 0, 0);
-        }
     }
 
     void clampHorizontalSpeed() {

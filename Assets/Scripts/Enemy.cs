@@ -19,8 +19,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public int moveCooldownStart = 100;
-    public int moveCooldown = 0;
+    public float moveCooldownStart = 100;
+    public float moveCooldown = 0;
     public bool playerInAttackRadius = false;
     public bool PlayerInAttackRadius {
         get { return this.playerInAttackRadius; }
@@ -38,8 +38,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public int attackCooldownStart = 10;
-    public int attackCooldown = 0;
+    public float attackCooldownStart = 10;
+    public float attackCooldown = 0;
     public int attackAmount = 1;
 
     [SerializeField]
@@ -90,14 +90,14 @@ public class Enemy : MonoBehaviour
                 this.clampHorizontalSpeed();
                 this.Flip(moveHorizontal);
             } else {
-                this.moveCooldown--;
+                this.moveCooldown -= Time.deltaTime;
             }
         } else {
             if (this.attackCooldown < 0) {
                 this.player.Hurt(this.attackAmount);
                 this.attackCooldown = this.attackCooldownStart;
             } else {
-                this.attackCooldown--;
+                this.attackCooldown -= Time.deltaTime;
             }
         }
     }
@@ -151,6 +151,7 @@ public class Enemy : MonoBehaviour
     }
 
     public void Hurt(int damage) {
+        Debug.Log("Hit for " + damage);
         this.health -= damage;
         if (this.health < 1) {
             Destroy(this.gameObject);
